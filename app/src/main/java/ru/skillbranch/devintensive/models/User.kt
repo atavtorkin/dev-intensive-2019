@@ -3,7 +3,7 @@ package ru.skillbranch.devintensive.models
 import ru.skillbranch.devintensive.utils.Utils
 import java.util.*
 
-data class User private constructor(
+data class User (
     val id: String,
     var firstName: String?,
     var lastName: String?,
@@ -31,10 +31,6 @@ data class User private constructor(
         builder.lastVisit,
         builder.isOnline
     )
-
-    init {
-        println("firstName $firstName lastName $lastName")
-    }
 
     companion object Factory {
         private var lastId: Int = -1
