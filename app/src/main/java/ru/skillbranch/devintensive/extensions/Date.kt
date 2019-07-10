@@ -33,7 +33,7 @@ fun Date.humanizeDiff(date: Date = Date()): String {
 
     val text = when {
         value <= 1 * SECOND -> return "только что"
-        value <= 45 * SECOND -> "несколько секуд"
+        value <= 45 * SECOND -> "несколько секунд"
         value <= 75 * SECOND -> "минуту"
         value <= 45 * MINUTE -> TimeUnits.MINUTE.plural(value / MINUTE)
         value <= 75 * MINUTE -> "час"
