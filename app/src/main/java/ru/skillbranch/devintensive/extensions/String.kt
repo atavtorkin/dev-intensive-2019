@@ -9,18 +9,30 @@ fun String.truncate(count: Int = 16): String {
 
 fun String.stripHtml(): String {
     val stringBuilder = StringBuilder()
-    var isTest = true
-    var countSpace = 0
+    var isOpenTag = true
+    var isSpace = false
     this.forEach { c ->
-        if (c.isWhitespace()) countSpace++ else countSpace = 0
         when {
-            c == '<' -> isTest = false
-            c == '>' -> isTest = true
-            c == '&' -> isTest = false
-            c == ';' -> isTest = true
+            c == '<' -> isOpenTag = false
+            c == '>' -> isOpenTag = true
+            c == '&' -> isOpenTag = false
+            c == ';' -> isOpenTag = true
             c == '"' -> none()
             c == '\'' -> none()
-            isTest.and((countSpace <= 1)) -> stringBuilder.append(c)
+            isOpenTag -> {
+                when {
+                    c.isWhitespace() -> {
+                        if (!isSpace) {
+                            stringBuilder.append(c)
+                            isSpace = true
+                        }
+                    }
+                    else -> {
+                        stringBuilder.append(c)
+                        isSpace = false
+                    }
+                }
+            }
         }
     }
     return stringBuilder.toString().trim()
