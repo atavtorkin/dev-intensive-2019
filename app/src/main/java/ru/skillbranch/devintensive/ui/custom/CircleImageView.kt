@@ -5,10 +5,8 @@ import android.graphics.*
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.widget.ImageView
-import androidx.annotation.ColorInt
-import androidx.annotation.Dimension
-import androidx.annotation.DrawableRes
-import androidx.annotation.Px
+import androidx.annotation.*
+import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.graphics.toRectF
 import ru.skillbranch.devintensive.R
@@ -123,10 +121,14 @@ class CircleImageView @JvmOverloads constructor(
         return borderColor
     }
 
-    fun setBorderColor(@ColorInt color: Int) {
-        borderColor = color
-        borderPaint.color = borderColor
-        invalidate()
+    fun setBorderColor(hex: String) {
+        borderColor = Color.parseColor(hex)
+        this.invalidate()
+    }
+
+    fun setBorderColor(@ColorRes colorId: Int) {
+        borderColor = ContextCompat.getColor(context, colorId)
+        this.invalidate()
     }
 
     private fun setup() {
