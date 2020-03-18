@@ -11,6 +11,7 @@ import androidx.core.graphics.drawable.toBitmap
 import androidx.core.graphics.toRectF
 import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.extensions.dpToPx
+import ru.skillbranch.devintensive.extensions.pxToDp
 import kotlin.math.max
 
 /**
@@ -108,11 +109,11 @@ class CircleImageView @JvmOverloads constructor(
 
     @Dimension
     fun getBorderWidth(): Int {
-        return borderWidth.toInt()
+        return context.pxToDp(borderWidth).toInt()
     }
 
     fun setBorderWidth(@Dimension width: Int) {
-        borderWidth = context.dpToPx(width)
+        borderWidth = width.toFloat()
         borderPaint.strokeWidth = borderWidth
         invalidate()
     }
