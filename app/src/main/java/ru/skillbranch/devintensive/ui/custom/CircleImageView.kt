@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.widget.ImageView
 import androidx.annotation.*
+import androidx.annotation.Dimension.DP
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.graphics.toRectF
@@ -107,17 +108,18 @@ class CircleImageView @JvmOverloads constructor(
         prepareShader(width, height)
     }
 
-    @Dimension
+    @Dimension(unit = DP)
     fun getBorderWidth(): Int {
         return context.pxToDp(borderWidth).toInt()
     }
 
     fun setBorderWidth(@Dimension width: Int) {
-        borderWidth = width.toFloat()
+        borderWidth = context.dpToPx(width)
         borderPaint.strokeWidth = borderWidth
         invalidate()
     }
 
+    @ColorInt
     fun getBorderColor(): Int {
         return borderColor
     }
