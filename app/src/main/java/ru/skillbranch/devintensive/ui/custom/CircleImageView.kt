@@ -11,8 +11,9 @@ import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.graphics.toRectF
 import ru.skillbranch.devintensive.R
+import ru.skillbranch.devintensive.extensions.convertDpToPx
+import ru.skillbranch.devintensive.extensions.convertPxToDp
 import ru.skillbranch.devintensive.extensions.dpToPx
-import ru.skillbranch.devintensive.extensions.pxToDp
 import kotlin.math.max
 
 /**
@@ -27,13 +28,13 @@ class CircleImageView @JvmOverloads constructor(
 ) : ImageView(context, attrs, defStyleAttr) {
 
     companion object {
-        private const val DEFAULT_BORDER_WIDTH = 2
+        private const val DEFAULT_BORDER_WIDTH = 6f
         private const val DEFAULT_BORDER_COLOR = Color.WHITE
         private const val DEFAULT_SIZE = 40
     }
 
     @Px
-    var borderWidth: Float = context.dpToPx(DEFAULT_BORDER_WIDTH)
+    var borderWidth: Float = convertDpToPx(context, DEFAULT_BORDER_WIDTH)
 
     @ColorInt
     private var borderColor: Int = Color.WHITE
@@ -47,11 +48,10 @@ class CircleImageView @JvmOverloads constructor(
     init {
         if (attrs != null) {
             val ta = context.obtainStyledAttributes(attrs, R.styleable.CircleImageView)
-            borderWidth = ta.getDimension(
-                    R.styleable.CircleImageView_cv_borderWidth,
-                    context.dpToPx(DEFAULT_BORDER_WIDTH)
-            )
-
+            borderWidth =
+                    ta.getDimension(
+                            R.styleable.CircleImageView_cv_borderWidth,
+                            convertDpToPx(context, DEFAULT_BORDER_WIDTH))
             borderColor =
                     ta.getColor(
                             R.styleable.CircleImageView_cv_borderColor,
@@ -110,7 +110,7 @@ class CircleImageView @JvmOverloads constructor(
 
     @Dimension(unit = DP)
     fun getBorderWidth(): Int {
-        return context.pxToDp(borderWidth).toInt()
+        return convertPxToDp(context, borderWidth).toInt()
     }
 
     fun setBorderWidth(@Dimension width: Int) {
