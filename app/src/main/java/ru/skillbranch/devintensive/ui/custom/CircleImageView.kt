@@ -12,7 +12,6 @@ import androidx.core.graphics.drawable.toBitmap
 import androidx.core.graphics.toRectF
 import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.extensions.convertDpToPx
-import ru.skillbranch.devintensive.extensions.convertPxToDp
 import ru.skillbranch.devintensive.extensions.dpToPx
 import kotlin.math.max
 
@@ -28,7 +27,7 @@ class CircleImageView @JvmOverloads constructor(
 ) : ImageView(context, attrs, defStyleAttr) {
 
     companion object {
-        private const val DEFAULT_BORDER_WIDTH = 6f
+        private const val DEFAULT_BORDER_WIDTH = 2f
         private const val DEFAULT_BORDER_COLOR = Color.WHITE
         private const val DEFAULT_SIZE = 40
     }
@@ -85,7 +84,7 @@ class CircleImageView @JvmOverloads constructor(
     override fun onDraw(canvas: Canvas) {
         if (drawable != null) drawAvatar(canvas)
 
-        val half = (borderWidth / 2).toInt()
+        val half = (borderWidth / 2f).toInt()
         with(borderRect) {
             set(viewRect)
             inset(half, half)
@@ -110,11 +109,11 @@ class CircleImageView @JvmOverloads constructor(
 
     @Dimension(unit = DP)
     fun getBorderWidth(): Int {
-        return convertPxToDp(context, borderWidth).toInt()
+        return borderWidth.toInt()
     }
 
     fun setBorderWidth(@Dimension width: Int) {
-        borderWidth = context.dpToPx(width)
+        borderWidth = convertDpToPx(context, width.toFloat())
         borderPaint.strokeWidth = borderWidth
         invalidate()
     }

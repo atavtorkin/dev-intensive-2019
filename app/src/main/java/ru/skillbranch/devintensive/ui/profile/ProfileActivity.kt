@@ -4,6 +4,7 @@ import android.graphics.ColorFilter
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
@@ -83,6 +84,8 @@ class ProfileActivity : AppCompatActivity() {
         btn_switch_theme.setOnClickListener {
             viewModel.switchTheme()
         }
+        Log.d("TEST", "getBorderWidth = ${iv_avatar.getBorderWidth()}")
+        Log.d("TEST", "borderWidth = ${iv_avatar.borderWidth}")
     }
 
     private fun showCurrentMode(isEdit: Boolean) {
