@@ -12,6 +12,7 @@ import androidx.core.graphics.drawable.toBitmap
 import androidx.core.graphics.toRectF
 import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.extensions.convertDpToPx
+import ru.skillbranch.devintensive.extensions.convertPxToDp
 import ru.skillbranch.devintensive.extensions.dpToPx
 import kotlin.math.max
 
@@ -56,7 +57,6 @@ class CircleImageView @JvmOverloads constructor(
                             R.styleable.CircleImageView_cv_borderColor,
                             DEFAULT_BORDER_COLOR
                     )
-
             ta.recycle()
         }
         scaleType = ScaleType.CENTER_INSIDE
@@ -109,7 +109,7 @@ class CircleImageView @JvmOverloads constructor(
 
     @Dimension(unit = DP)
     fun getBorderWidth(): Int {
-        return borderWidth.toInt()
+        return convertPxToDp(context, borderWidth).toInt()
     }
 
     fun setBorderWidth(@Dimension width: Int) {
